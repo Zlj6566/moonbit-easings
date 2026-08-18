@@ -1,10 +1,10 @@
-name = "Lyl66655/moonbit-easings"
+name = "Zlj6566/moonbit-easings"
 
 version = "0.1.0"
 
 readme = "README.mbt.md"
 
-repository = ""
+repository = "https://github.com/Zlj6566/moonbit-easings"
 
 license = "MIT"
 

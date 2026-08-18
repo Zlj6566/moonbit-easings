@@ -1,5 +1,5 @@
 import {
-  "Lyl66655/moonbit-easings" @easings,
+  "Zlj6566/moonbit-easings" @easings,
 }
 
 pkgtype(kind: "executable")
