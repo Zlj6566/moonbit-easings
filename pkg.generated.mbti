@@ -1,0 +1,726 @@
+// Generated using `moon info`, DON'T EDIT IT
+package "Lyl66655/moonbit-easings"
+
+import {
+  "moonbitlang/core/debug",
+}
+
+// Values
+pub fn all_easings() -> Array[EasingId]
+
+pub fn analyze_bezier(Bezier, Int) -> CurveReport
+
+pub fn analyze_easing((Double) -> Double, Int) -> CurveReport
+
+pub fn analyze_easing_id(EasingId, Int) -> CurveReport
+
+pub fn back_in(Double, overshoot? : Double) -> Double
+
+pub fn back_in_out(Double, overshoot? : Double) -> Double
+
+pub fn back_out(Double, overshoot? : Double) -> Double
+
+pub fn bezier_clamped(Double, Double, Double, Double) -> Bezier
+
+pub fn blend((Double) -> Double, (Double) -> Double, amount~ : Double) -> (Double) -> Double
+
+pub fn blend_values(Array[Double], Array[Double], Double) -> Array[Double]
+
+pub fn bounce_in(Double) -> Double
+
+pub fn bounce_in_out(Double) -> Double
+
+pub fn bounce_out(Double) -> Double
+
+pub fn catmull_rom(Double, Double, Double, Double, Double, tension? : Double) -> Double
+
+pub fn catmull_rom_array(Array[Double], Double) -> Double
+
+pub fn circ_in(Double) -> Double
+
+pub fn circ_in_out(Double) -> Double
+
+pub fn circ_out(Double) -> Double
+
+pub fn clamp01(Double) -> Double
+
+pub fn clamp_values(Array[Double], MotionBounds) -> Array[Double]
+
+pub fn compose((Double) -> Double, (Double) -> Double) -> (Double) -> Double
+
+pub fn cubic_in(Double) -> Double
+
+pub fn cubic_in_out(Double) -> Double
+
+pub fn cubic_out(Double) -> Double
+
+pub fn cubic_path2d(Point2, Point2, Point2, Point2) -> CubicPath2D
+
+pub fn decimate_samples(Array[SamplePoint], Int) -> Array[SamplePoint]
+
+pub fn derivative_of((Double) -> Double, Double, step? : Double) -> Double
+
+pub fn differentiate(Array[Double], Double) -> Array[Double]
+
+pub fn easing(EasingId) -> (Double) -> Double
+
+pub fn elastic_in(Double, amplitude? : Double, period? : Double) -> Double
+
+pub fn elastic_in_out(Double, amplitude? : Double, period? : Double) -> Double
+
+pub fn elastic_out(Double, amplitude? : Double, period? : Double) -> Double
+
+pub fn enforce_monotonic(Array[Double], Bool) -> Array[Double]
+
+pub fn expo_in(Double) -> Double
+
+pub fn expo_in_out(Double) -> Double
+
+pub fn expo_out(Double) -> Double
+
+pub fn gradient_stop(Double, Rgba, curve? : Curve) -> GradientStop raise MotionError
+
+pub fn hermite(Double, Double, Double, Double, Double) -> Double
+
+pub fn hsv(hue~ : Double, saturation~ : Double, value~ : Double, alpha? : Double) -> Hsv
+
+pub fn integrate_curve((Double) -> Double, Int) -> Double
+
+pub fn interpolate_angle(Double, Double, Double) -> Double
+
+pub fn interpolate_hsv(Hsv, Hsv, Double) -> Hsv
+
+pub fn interpolate_point2(Point2, Point2, Double) -> Point2
+
+pub fn interpolate_point3(Point3, Point3, Double) -> Point3
+
+pub fn interpolate_rgba(Rgba, Rgba, Double, premultiplied? : Bool) -> Rgba
+
+pub fn interpolate_rgba_hsv(Rgba, Rgba, Double) -> Rgba
+
+pub fn interpolate_scalar(Double, Double, Double) -> Double
+
+pub fn interpolate_transform(Transform2D, Transform2D, Double, shortest_rotation? : Bool) -> Transform2D
+
+pub fn keyframe(Double, Double, curve? : Curve) -> Keyframe raise MotionError
+
+pub fn linear(Double) -> Double
+
+pub fn mirror((Double) -> Double) -> (Double) -> Double
+
+pub fn monotone_envelope(Array[Double]) -> Array[Double]
+
+pub fn motion_profile((Double) -> Double, Int) -> Array[MotionSample] raise MotionError
+
+pub fn moving_average(Array[Double], Int) -> Array[Double]
+
+pub fn normalize_samples(Array[Double]) -> Array[Double]
+
+pub fn peak_index(Array[Double]) -> Int?
+
+pub fn point2(x~ : Double, y~ : Double) -> Point2
+
+pub fn point2_keyframe(Double, value~ : Point2, curve? : Curve) -> Point2Keyframe raise MotionError
+
+pub fn point3(x~ : Double, y~ : Double, z~ : Double) -> Point3
+
+pub fn point3_keyframe(Double, value~ : Point3, curve? : Curve) -> Point3Keyframe raise MotionError
+
+pub fn polynomial_in(Double, exponent~ : Double) -> Double
+
+pub fn polynomial_in_out(Double, exponent~ : Double) -> Double
+
+pub fn polynomial_out(Double, exponent~ : Double) -> Double
+
+pub fn quad_in(Double) -> Double
+
+pub fn quad_in_out(Double) -> Double
+
+pub fn quad_out(Double) -> Double
+
+pub fn quantize_to_grid(Double, Double) -> Double
+
+pub fn quart_in(Double) -> Double
+
+pub fn quart_in_out(Double) -> Double
+
+pub fn quart_out(Double) -> Double
+
+pub fn quint_in(Double) -> Double
+
+pub fn quint_in_out(Double) -> Double
+
+pub fn quint_out(Double) -> Double
+
+pub fn remap_times(Array[Double], TimeWarp) -> Array[Double]
+
+pub fn rgba(r~ : Double, g~ : Double, b~ : Double, a? : Double) -> Rgba
+
+pub fn rgba_keyframe(Double, value~ : Rgba, curve? : Curve) -> RgbaKeyframe raise MotionError
+
+pub fn rms(Array[Double]) -> Double
+
+pub fn sample_function((Double) -> Double, Double, Double, Int) -> Array[SamplePoint] raise MotionError
+
+pub fn sample_track(ScalarTrack, SamplingConfig, mode? : Extrapolation) -> Array[SamplePoint]
+
+pub fn sample_tween(Tween, SamplingConfig) -> Array[SamplePoint]
+
+pub fn sine_in(Double) -> Double
+
+pub fn sine_in_out(Double) -> Double
+
+pub fn sine_out(Double) -> Double
+
+pub fn soft_limit(Double, Double, Double, Double) -> Double
+
+pub fn spring_spec(Double, Double, mass? : Double, initial_velocity? : Double) -> SpringSpec raise MotionError
+
+pub fn stagger(Int, Double, Double) -> Array[Double]
+
+pub fn track_slot(String, ScalarTrack, offset? : Double, enabled? : Bool) -> TrackSlot
+
+pub fn transform2d(position~ : Point2, scale~ : Point2, rotation~ : Double, skew? : Double) -> Transform2D
+
+pub fn transform_keyframe(Double, value~ : Transform2D, curve? : Curve) -> TransformKeyframe raise MotionError
+
+// Errors
+pub(all) suberror MotionError {
+  InvalidBezierX(Double, Double)
+  InvalidSampleCount(Int)
+  InvalidTime(Double)
+  InvalidDuration(Double)
+  InvalidDelay(Double)
+  InvalidRepeatCount(Int)
+  EmptyTrack
+  NonIncreasingKeyframe(Double, Double)
+  InvalidFrameRate(Double)
+}
+
+// Types and methods
+pub struct Bezier {
+  x1 : Double
+  y1 : Double
+  x2 : Double
+  y2 : Double
+  sample_values : Array[Double]
+} derive(@debug.Debug)
+pub fn Bezier::approximate_length(Self, Int) -> Double
+pub fn Bezier::as_easing(Self) -> (Double) -> Double
+pub fn Bezier::control_points(Self) -> (Double, Double, Double, Double)
+pub fn Bezier::derivative(Self, Double) -> Double
+pub fn Bezier::max_error(Self, (Double) -> Double, Int) -> Double
+pub fn Bezier::new(Double, Double, Double, Double, sample_count? : Int) -> Self raise MotionError
+pub fn Bezier::reversed(Self) -> Self
+pub fn Bezier::sample(Self, Double) -> Double
+pub fn Bezier::sample_many(Self, Int) -> Array[Double] raise MotionError
+pub fn Bezier::solve_time(Self, Double) -> Double
+
+pub(all) struct Bounds2D {
+  minimum : Point2
+  maximum : Point2
+} derive(@debug.Debug)
+pub fn Bounds2D::maximum(Self) -> Point2
+pub fn Bounds2D::minimum(Self) -> Point2
+
+pub struct ColorGradient {
+  stops : Array[GradientStop]
+  premultiplied : Bool
+} derive(@debug.Debug)
+pub fn ColorGradient::end(Self) -> Double
+pub fn ColorGradient::length(Self) -> Int
+pub fn ColorGradient::new(Array[GradientStop], premultiplied? : Bool) -> Self raise MotionError
+pub fn ColorGradient::premultiplied(Self) -> Bool
+pub fn ColorGradient::reversed(Self) -> Self
+pub fn ColorGradient::sample(Self, Double) -> Rgba
+pub fn ColorGradient::sample_many(Self, Int) -> Array[Rgba] raise MotionError
+pub fn ColorGradient::start(Self) -> Double
+pub fn ColorGradient::stops(Self) -> Array[GradientStop]
+
+pub struct CubicPath2D {
+  start : Point2
+  control_start : Point2
+  control_end : Point2
+  end : Point2
+} derive(@debug.Debug)
+pub fn CubicPath2D::bounds(Self, segments? : Int) -> Bounds2D
+pub fn CubicPath2D::length(Self, Int) -> Double
+pub fn CubicPath2D::polyline(Self, Int) -> Array[Point2]
+pub fn CubicPath2D::sample(Self, Double) -> Point2
+pub fn CubicPath2D::sample_by_distance(Self, Double, segments? : Int) -> Point2
+pub fn CubicPath2D::tangent(Self, Double) -> Point2
+
+pub(all) enum Curve {
+  Builtin(EasingId)
+  CubicBezier(Bezier)
+} derive(@debug.Debug)
+pub fn Curve::apply(Self, Double) -> Double
+pub fn Curve::bezier(Bezier) -> Self
+pub fn Curve::builtin(EasingId) -> Self
+pub fn Curve::derivative(Self, Double) -> Double
+
+pub struct CurveChain {
+  curves : Array[Curve]
+  weights : Array[Double]
+  total_weight : Double
+} derive(@debug.Debug)
+pub fn CurveChain::derivative(Self, Double) -> Double
+pub fn CurveChain::length(Self) -> Int
+pub fn CurveChain::new(Array[Curve], weights? : Array[Double]) -> Self raise MotionError
+pub fn CurveChain::sample(Self, Double) -> Double
+pub fn CurveChain::sample_many(Self, Int) -> Array[Double] raise MotionError
+
+pub(all) struct CurveReport {
+  samples : Int
+  minimum : Double
+  maximum : Double
+  endpoint_error : Double
+  monotonic : Bool
+  peak_velocity : Double
+  peak_acceleration : Double
+} derive(@debug.Debug)
+pub fn CurveReport::endpoint_error(Self) -> Double
+pub fn CurveReport::is_monotonic(Self) -> Bool
+pub fn CurveReport::maximum(Self) -> Double
+pub fn CurveReport::minimum(Self) -> Double
+pub fn CurveReport::peak_acceleration(Self) -> Double
+pub fn CurveReport::peak_velocity(Self) -> Double
+pub fn CurveReport::samples(Self) -> Int
+
+pub(all) enum EasingId {
+  Linear
+  QuadIn
+  QuadOut
+  QuadInOut
+  CubicIn
+  CubicOut
+  CubicInOut
+  QuartIn
+  QuartOut
+  QuartInOut
+  QuintIn
+  QuintOut
+  QuintInOut
+  SineIn
+  SineOut
+  SineInOut
+  ExpoIn
+  ExpoOut
+  ExpoInOut
+  CircIn
+  CircOut
+  CircInOut
+  BackIn
+  BackOut
+  BackInOut
+  ElasticIn
+  ElasticOut
+  ElasticInOut
+  BounceIn
+  BounceOut
+  BounceInOut
+} derive(Eq, @debug.Debug)
+pub fn EasingId::apply(Self, Double) -> Double
+pub fn EasingId::derivative(Self, Double) -> Double
+
+pub(all) enum Extrapolation {
+  Clamp
+  Repeat
+  Mirror
+  Continue
+} derive(Eq, @debug.Debug)
+
+pub struct FrameClock {
+  frame_rate : Double
+  origin : Double
+} derive(@debug.Debug)
+pub fn FrameClock::frame_rate(Self) -> Double
+pub fn FrameClock::frame_times(Self, Int, Int) -> Array[Double]
+pub fn FrameClock::frame_to_seconds(Self, Int) -> Double
+pub fn FrameClock::new(Double, origin? : Double) -> Self raise MotionError
+pub fn FrameClock::quantize(Self, Double) -> Double
+pub fn FrameClock::seconds_to_frame(Self, Double) -> Int
+
+pub struct GradientBuilder {
+  stops : Array[GradientStop]
+  premultiplied : Bool
+}
+pub fn GradientBuilder::add(Self, GradientStop) -> Unit
+pub fn GradientBuilder::build(Self) -> ColorGradient raise MotionError
+pub fn GradientBuilder::new(premultiplied? : Bool) -> Self
+pub fn GradientBuilder::remove_at(Self, Int) -> GradientStop?
+
+pub struct GradientStop {
+  position : Double
+  color : Rgba
+  curve : Curve
+} derive(@debug.Debug)
+pub fn GradientStop::color(Self) -> Rgba
+pub fn GradientStop::curve(Self) -> Curve
+pub fn GradientStop::position(Self) -> Double
+
+pub(all) struct Hsv {
+  hue : Double
+  saturation : Double
+  value : Double
+  alpha : Double
+} derive(@debug.Debug)
+pub fn Hsv::alpha(Self) -> Double
+pub fn Hsv::hue(Self) -> Double
+pub fn Hsv::saturation(Self) -> Double
+pub fn Hsv::to_rgba(Self) -> Rgba
+pub fn Hsv::value(Self) -> Double
+
+pub struct Keyframe {
+  time : Double
+  value : Double
+  curve : Curve
+} derive(@debug.Debug)
+pub fn Keyframe::curve(Self) -> Curve
+pub fn Keyframe::time(Self) -> Double
+pub fn Keyframe::value(Self) -> Double
+
+pub struct MotionBounds {
+  minimum : Double
+  maximum : Double
+} derive(@debug.Debug)
+pub fn MotionBounds::clamp(Self, Double) -> Double
+pub fn MotionBounds::maximum(Self) -> Double
+pub fn MotionBounds::minimum(Self) -> Double
+pub fn MotionBounds::new(Double, Double) -> Self raise MotionError
+
+pub(all) struct MotionSample {
+  time : Double
+  value : Double
+  velocity : Double
+  acceleration : Double
+} derive(@debug.Debug)
+pub fn MotionSample::acceleration(Self) -> Double
+pub fn MotionSample::value(Self) -> Double
+pub fn MotionSample::velocity(Self) -> Double
+
+pub(all) struct Point2 {
+  x : Double
+  y : Double
+} derive(@debug.Debug)
+pub fn Point2::distance(Self, Self) -> Double
+pub fn Point2::lerp(Self, Self, Double) -> Self
+pub fn Point2::x(Self) -> Double
+pub fn Point2::y(Self) -> Double
+
+pub struct Point2Keyframe {
+  time : Double
+  value : Point2
+  curve : Curve
+} derive(@debug.Debug)
+pub fn Point2Keyframe::curve(Self) -> Curve
+pub fn Point2Keyframe::time(Self) -> Double
+pub fn Point2Keyframe::value(Self) -> Point2
+
+pub struct Point2Track {
+  frames : Array[Point2Keyframe]
+} derive(@debug.Debug)
+pub fn Point2Track::duration(Self) -> Double
+pub fn Point2Track::end_time(Self) -> Double
+pub fn Point2Track::keyframes(Self) -> Array[Point2Keyframe]
+pub fn Point2Track::length(Self) -> Int
+pub fn Point2Track::new(Array[Point2Keyframe]) -> Self raise MotionError
+pub fn Point2Track::sample(Self, Double, mode? : Extrapolation) -> Point2
+pub fn Point2Track::sample_many(Self, Int, mode? : Extrapolation) -> Array[Point2] raise MotionError
+pub fn Point2Track::start_time(Self) -> Double
+
+pub(all) struct Point3 {
+  x : Double
+  y : Double
+  z : Double
+} derive(@debug.Debug)
+pub fn Point3::lerp(Self, Self, Double) -> Self
+pub fn Point3::x(Self) -> Double
+pub fn Point3::y(Self) -> Double
+pub fn Point3::z(Self) -> Double
+
+pub struct Point3Keyframe {
+  time : Double
+  value : Point3
+  curve : Curve
+} derive(@debug.Debug)
+pub fn Point3Keyframe::curve(Self) -> Curve
+pub fn Point3Keyframe::time(Self) -> Double
+pub fn Point3Keyframe::value(Self) -> Point3
+
+pub struct Point3Track {
+  frames : Array[Point3Keyframe]
+} derive(@debug.Debug)
+pub fn Point3Track::duration(Self) -> Double
+pub fn Point3Track::end_time(Self) -> Double
+pub fn Point3Track::keyframes(Self) -> Array[Point3Keyframe]
+pub fn Point3Track::length(Self) -> Int
+pub fn Point3Track::new(Array[Point3Keyframe]) -> Self raise MotionError
+pub fn Point3Track::sample(Self, Double, mode? : Extrapolation) -> Point3
+pub fn Point3Track::sample_many(Self, Int, mode? : Extrapolation) -> Array[Point3] raise MotionError
+pub fn Point3Track::start_time(Self) -> Double
+
+pub(all) struct Rgba {
+  r : Double
+  g : Double
+  b : Double
+  a : Double
+} derive(@debug.Debug)
+pub fn Rgba::alpha(Self) -> Double
+pub fn Rgba::blue(Self) -> Double
+pub fn Rgba::green(Self) -> Double
+pub fn Rgba::luminance(Self) -> Double
+pub fn Rgba::red(Self) -> Double
+pub fn Rgba::to_hsv(Self) -> Hsv
+
+pub struct RgbaKeyframe {
+  time : Double
+  value : Rgba
+  curve : Curve
+} derive(@debug.Debug)
+
+pub struct RgbaTrack {
+  frames : Array[RgbaKeyframe]
+  premultiplied : Bool
+} derive(@debug.Debug)
+pub fn RgbaTrack::duration(Self) -> Double
+pub fn RgbaTrack::end_time(Self) -> Double
+pub fn RgbaTrack::keyframes(Self) -> Array[RgbaKeyframe]
+pub fn RgbaTrack::length(Self) -> Int
+pub fn RgbaTrack::new(Array[RgbaKeyframe], premultiplied? : Bool) -> Self raise MotionError
+pub fn RgbaTrack::sample(Self, Double, mode? : Extrapolation) -> Rgba
+pub fn RgbaTrack::sample_many(Self, Int, mode? : Extrapolation) -> Array[Rgba] raise MotionError
+pub fn RgbaTrack::start_time(Self) -> Double
+
+pub(all) struct SamplePoint {
+  time : Double
+  value : Double
+  frame : Int
+} derive(@debug.Debug)
+pub fn SamplePoint::frame(Self) -> Int
+pub fn SamplePoint::time(Self) -> Double
+pub fn SamplePoint::value(Self) -> Double
+
+pub struct SamplingConfig {
+  start : Double
+  end : Double
+  frame_rate : Double
+  include_end : Bool
+} derive(@debug.Debug)
+pub fn SamplingConfig::end(Self) -> Double
+pub fn SamplingConfig::frame_count(Self) -> Int
+pub fn SamplingConfig::frame_rate(Self) -> Double
+pub fn SamplingConfig::new(Double, Double, Double, include_end? : Bool) -> Self raise MotionError
+pub fn SamplingConfig::start(Self) -> Double
+
+pub struct ScalarTrack {
+  frames : Array[Keyframe]
+} derive(@debug.Debug)
+pub fn ScalarTrack::duration(Self) -> Double
+pub fn ScalarTrack::end_time(Self) -> Double
+pub fn ScalarTrack::keyframes(Self) -> Array[Keyframe]
+pub fn ScalarTrack::length(Self) -> Int
+pub fn ScalarTrack::map_values(Self, (Double) -> Double) -> Self raise MotionError
+pub fn ScalarTrack::new(Array[Keyframe]) -> Self raise MotionError
+pub fn ScalarTrack::sample(Self, Double, mode? : Extrapolation) -> Double
+pub fn ScalarTrack::sample_motion(Self, Double, mode? : Extrapolation) -> MotionSample
+pub fn ScalarTrack::sample_values(Self, Array[Double], mode? : Extrapolation) -> Array[Double]
+pub fn ScalarTrack::scale_time(Self, Double) -> Self raise MotionError
+pub fn ScalarTrack::shift(Self, Double) -> Self raise MotionError
+pub fn ScalarTrack::start_time(Self) -> Double
+pub fn ScalarTrack::trim(Self, Double, Double) -> Self raise MotionError
+pub fn ScalarTrack::value_range(Self, Int) -> (Double, Double)
+pub fn ScalarTrack::velocity(Self, Double, mode? : Extrapolation) -> Double
+pub fn ScalarTrack::with_curve(Self, Curve) -> Self raise MotionError
+
+pub struct SequenceBuilder {
+  tweens : Array[Tween]
+  gap : Double
+}
+pub fn SequenceBuilder::add(Self, Tween) -> Unit
+pub fn SequenceBuilder::build(Self) -> TweenSequence raise MotionError
+pub fn SequenceBuilder::new(gap? : Double) -> Self
+pub fn SequenceBuilder::remove_at(Self, Int) -> Tween?
+
+pub(all) struct SequenceSample {
+  time : Double
+  value : Double
+  index : Int
+  progress : Double
+  state : SequenceState
+} derive(@debug.Debug)
+pub fn SequenceSample::index(Self) -> Int
+pub fn SequenceSample::progress(Self) -> Double
+pub fn SequenceSample::state(Self) -> SequenceState
+pub fn SequenceSample::time(Self) -> Double
+pub fn SequenceSample::value(Self) -> Double
+
+pub(all) enum SequenceState {
+  Before
+  Active
+  Gap
+  After
+} derive(Eq, @debug.Debug)
+
+pub struct SpringSpec {
+  stiffness : Double
+  damping : Double
+  mass : Double
+  initial_velocity : Double
+} derive(@debug.Debug)
+pub fn SpringSpec::damping_ratio(Self) -> Double
+pub fn SpringSpec::is_settled(Self, Double, Double, Double, tolerance? : Double) -> Bool
+pub fn SpringSpec::natural_frequency(Self) -> Double
+pub fn SpringSpec::sample(Self, Double, Double, Double) -> MotionSample
+pub fn SpringSpec::sample_many(Self, Double, Double, Double, Int) -> Array[MotionSample] raise MotionError
+pub fn SpringSpec::settle_time(Self, tolerance? : Double) -> Double
+pub fn SpringSpec::value_at(Self, Double, Double, Double) -> Double
+pub fn SpringSpec::velocity_at(Self, Double, Double, Double) -> Double
+
+pub struct Tempo {
+  beats_per_minute : Double
+  beat_offset : Double
+} derive(@debug.Debug)
+pub fn Tempo::beat_duration(Self) -> Double
+pub fn Tempo::beats_to_seconds(Self, Double) -> Double
+pub fn Tempo::new(Double, beat_offset? : Double) -> Self raise MotionError
+pub fn Tempo::seconds_to_beats(Self, Double) -> Double
+
+pub struct TimeWarp {
+  curve : Curve
+  start : Double
+  end : Double
+  speed : Double
+} derive(@debug.Debug)
+pub fn TimeWarp::curve(Self) -> Curve
+pub fn TimeWarp::duration(Self) -> Double
+pub fn TimeWarp::map(Self, Double) -> Double
+pub fn TimeWarp::new(Curve, Double, Double, speed? : Double) -> Self raise MotionError
+pub fn TimeWarp::unmap(Self, Double) -> Double
+
+pub struct Timeline {
+  slots : Array[TrackSlot]
+} derive(@debug.Debug)
+pub fn Timeline::add(Self, TrackSlot) -> Unit
+pub fn Timeline::duration(Self) -> Double
+pub fn Timeline::new() -> Self
+pub fn Timeline::remove(Self, String) -> Bool
+pub fn Timeline::sample(Self, Double, mode? : Extrapolation) -> Array[TimelineValue]
+pub fn Timeline::sample_window(Self, SamplingConfig, mode? : Extrapolation) -> Array[Array[TimelineValue]]
+pub fn Timeline::set_enabled(Self, String, Bool) -> Bool
+pub fn Timeline::track_count(Self) -> Int
+pub fn Timeline::tracks(Self) -> Array[TrackSlot]
+
+pub(all) struct TimelineValue {
+  name : String
+  value : Double
+} derive(@debug.Debug)
+pub fn TimelineValue::name(Self) -> String
+pub fn TimelineValue::value(Self) -> Double
+
+pub struct TrackBuilder {
+  frames : Array[Keyframe]
+}
+pub fn TrackBuilder::add(Self, Keyframe) -> Unit
+pub fn TrackBuilder::build(Self) -> ScalarTrack raise MotionError
+pub fn TrackBuilder::new() -> Self
+pub fn TrackBuilder::remove_at(Self, Int) -> Keyframe?
+pub fn TrackBuilder::replace(Self, Int, Keyframe) -> Bool
+
+pub struct TrackSlot {
+  name : String
+  track : ScalarTrack
+  offset : Double
+  enabled : Bool
+} derive(@debug.Debug)
+pub fn TrackSlot::enabled(Self) -> Bool
+pub fn TrackSlot::name(Self) -> String
+pub fn TrackSlot::offset(Self) -> Double
+pub fn TrackSlot::track(Self) -> ScalarTrack
+
+pub(all) struct Transform2D {
+  position : Point2
+  scale : Point2
+  rotation : Double
+  skew : Double
+} derive(@debug.Debug)
+pub fn Transform2D::position(Self) -> Point2
+pub fn Transform2D::rotation(Self) -> Double
+pub fn Transform2D::scale(Self) -> Point2
+pub fn Transform2D::skew(Self) -> Double
+
+pub struct TransformKeyframe {
+  time : Double
+  value : Transform2D
+  curve : Curve
+} derive(@debug.Debug)
+
+pub struct TransformTrack {
+  frames : Array[TransformKeyframe]
+  shortest_rotation : Bool
+} derive(@debug.Debug)
+pub fn TransformTrack::duration(Self) -> Double
+pub fn TransformTrack::end_time(Self) -> Double
+pub fn TransformTrack::keyframes(Self) -> Array[TransformKeyframe]
+pub fn TransformTrack::length(Self) -> Int
+pub fn TransformTrack::new(Array[TransformKeyframe], shortest_rotation? : Bool) -> Self raise MotionError
+pub fn TransformTrack::sample(Self, Double, mode? : Extrapolation) -> Transform2D
+pub fn TransformTrack::sample_many(Self, Int, mode? : Extrapolation) -> Array[Transform2D] raise MotionError
+pub fn TransformTrack::start_time(Self) -> Double
+
+pub struct Tween {
+  from : Double
+  to : Double
+  duration : Double
+  delay : Double
+  repeat_count : Int
+  mode : Extrapolation
+  curve : Curve
+} derive(@debug.Debug)
+pub fn Tween::delay(Self) -> Double
+pub fn Tween::duration(Self) -> Double
+pub fn Tween::from(Self) -> Double
+pub fn Tween::new(Double, Double, Double, delay? : Double, repeat_count? : Int, mode? : Extrapolation, curve? : Curve) -> Self raise MotionError
+pub fn Tween::repeat_count(Self) -> Int
+pub fn Tween::sample(Self, Double) -> TweenSample
+pub fn Tween::sample_many(Self, Int) -> Array[TweenSample] raise MotionError
+pub fn Tween::sample_motion(Self, Double) -> MotionSample
+pub fn Tween::to(Self) -> Double
+pub fn Tween::total_duration(Self) -> Double
+pub fn Tween::value_at(Self, Double) -> Double
+pub fn Tween::velocity_at(Self, Double) -> Double
+
+pub(all) struct TweenSample {
+  time : Double
+  value : Double
+  progress : Double
+  cycle : Int
+  state : TweenState
+} derive(@debug.Debug)
+pub fn TweenSample::cycle(Self) -> Int
+pub fn TweenSample::progress(Self) -> Double
+pub fn TweenSample::state(Self) -> TweenState
+pub fn TweenSample::value(Self) -> Double
+
+pub struct TweenSequence {
+  tweens : Array[Tween]
+  gap : Double
+} derive(@debug.Debug)
+pub fn TweenSequence::duration(Self) -> Double
+pub fn TweenSequence::gap(Self) -> Double
+pub fn TweenSequence::length(Self) -> Int
+pub fn TweenSequence::new(Array[Tween], gap? : Double) -> Self raise MotionError
+pub fn TweenSequence::sample(Self, Double) -> SequenceSample
+pub fn TweenSequence::sample_many(Self, Int) -> Array[SequenceSample] raise MotionError
+pub fn TweenSequence::tweens(Self) -> Array[Tween]
+pub fn TweenSequence::value_at(Self, Double) -> Double
+
+pub(all) enum TweenState {
+  Before
+  Active
+  After
+} derive(Eq, @debug.Debug)
+
+// Type aliases
+
+// Traits
