@@ -46,11 +46,14 @@ jobs:
         shell: bash
         run: |
           moon fmt --check
-          moon info
+          moon info --target all
           git diff --exit-code
 
       - name: Check all backends
         run: moon check --fmt --deny-warn --target all
+
+      - name: Build all backends
+        run: moon build --target all
 
       - name: Test all backends
         run: moon test --deny-warn --target all
