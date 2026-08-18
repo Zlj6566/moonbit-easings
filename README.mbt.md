@@ -8,7 +8,7 @@ moonbit-easings 是一个纯 MoonBit、无运行时依赖的运动学内核，�
 
 在选题前检索了 Mooncakes 的 easing、bezier、animation、tween 和 keyframe 关键词。生态中已经有 hackwaly/easing 基础曲线包，以及 cg-zhou/bezier_easing 和使用它的 cg-zhou/moon_lottie。本项目不复制它们的代码，也不把自己描述成首个 easing 实现；独立贡献集中在：
 
-- 把 30 个常用曲线、可配置 Cubic-Bezier 和关键帧段统一成可组合的 Curve；
+- 把 31 个常用曲线、可配置 Cubic-Bezier 和关键帧段统一成可组合的 Curve；
 - 用缓存采样表 + Newton 迭代 + 区间二分完成稳定的时间轴求逆；
 - 提供 ScalarTrack、Tween、Timeline 和确定性采样窗口，覆盖实际媒体工作流；
 - 提供 Point2/Point3、RGBA、Transform2D 类型轨道、ColorGradient 和 TweenSequence；
@@ -21,7 +21,7 @@ moonbit-easings 是一个纯 MoonBit、无运行时依赖的运动学内核，�
 
 ### Easing 与曲线
 
-- Linear、Quad、Cubic、Quart、Quint、Sine、Expo、Circ；
+- Linear、Quad、Cubic、Quart、Quint、Sine、Expo、Circ；共 31 个内建曲线。
 - Back、Elastic、Bounce 等带超调的曲线；
 - compose、blend、mirror 组合；
 - Bezier::new(x1, y1, x2, y2) 自定义三次贝塞尔；
@@ -47,10 +47,10 @@ moonbit-easings 是一个纯 MoonBit、无运行时依赖的运动学内核，�
 
 ## 安装
 
-要求 MoonBit 0.10.3 或更新版本。当前仓库使用 Mooncakes namespace Lyl66655/moonbit-easings；如果发布账号不同，请在发布前把 moon.mod 和导入路径中的 namespace 同步为自己的 Mooncakes 账号。
+要求 MoonBit 0.10.3 或更新版本。当前仓库使用 Mooncakes namespace Zlj6566/moonbit-easings，并对应 GitHub 仓库 https://github.com/Zlj6566/moonbit-easings。
 
 ~~~sh
-moon add Lyl66655/moonbit-easings
+moon add Zlj6566/moonbit-easings
 ~~~
 
 在 moon.pkg 中：
@@ -58,7 +58,7 @@ moon add Lyl66655/moonbit-easings
 ~~~moonbit nocheck
 ///|
 import {
-  "Lyl66655/moonbit-easings" @easings,
+  "Zlj6566/moonbit-easings" @easings,
 }
 ~~~
 
