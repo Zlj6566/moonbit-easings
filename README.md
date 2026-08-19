@@ -1,59 +1,34 @@
-# MoonBit 数字媒体补间动画与贝塞尔缓动函数库
+# moonbit-easings
 
-moonbit-easings 是一个纯 MoonBit、无运行时依赖的运动学内核，面向 UI 交互、游戏镜头、数字艺术和离线媒体采样。它把 easing、Cubic-Bezier 时间轴求逆、Tween、关键帧轨道、命名时间线和导出采样组织成一套可组合 API。
+MoonBit 数字媒体补间动画与贝塞尔缓动函数库：为 UI 交互、游戏镜头、数字艺术和离线媒体提供可组合、无运行时依赖的运动学基础设施。
 
-项目的边界很明确：它不负责渲染窗口、不解析 Lottie、不绑定 Canvas，也不把某个 UI 框架当作前提。渲染器、游戏循环、音视频导出器可以直接消费这里产生的标量样本、速度和加速度。
+## 项目定位
 
-## 为什么不是已有 easing 包的重复实现
+`moonbit-easings` 负责“时间、数值和运动轨迹如何变化”，不负责窗口渲染、资源解析或具体 UI 框架。它可以作为渲染器、游戏循环、音视频导出器和交互式编辑器的底层采样层，输出标量、向量、颜色、变换、路径和事件数据。
 
-在选题前检索了 Mooncakes 的 easing、bezier、animation、tween 和 keyframe 关键词。生态中已经有 hackwaly/easing 基础曲线包，以及 cg-zhou/bezier_easing 和使用它的 cg-zhou/moon_lottie。本项目不复制它们的代码，也不把自己描述成首个 easing 实现；独立贡献集中在：
+项目把 easing、Cubic-Bezier 时间轴求逆、Tween、关键帧轨道、时间线、路径和传输控制放在统一的数据模型中，同时保持核心包不依赖平台 I/O，适合 Wasm、Wasm-GC、JavaScript 和 Native 目标。
 
-- 把 31 个常用曲线、可配置 Cubic-Bezier 和关键帧段统一成可组合的 Curve；
-- 用缓存采样表 + Newton 迭代 + 区间二分完成稳定的时间轴求逆；
-- 提供 ScalarTrack、Tween、Timeline 和确定性采样窗口，覆盖实际媒体工作流；
-- 提供 Point2/Point3、RGBA、Transform2D 类型轨道、ColorGradient 和 TweenSequence；
-- 提供 Hermite/Catmull-Rom、弹簧响应、路径采样、时间量化和曲线诊断指标；
-- 保持核心 API 不依赖平台 I/O，方便后续接入 wasm、native、JS 或具体渲染器。
+## 核心能力
 
-来源和许可证边界见 SOURCES.md。
+- 31 个内建 easing：Linear、Quad、Cubic、Quart、Quint、Sine、Expo、Circ、Back、Elastic、Bounce。
+- `Bezier::new(x1, y1, x2, y2)`：缓存采样表、Newton 迭代和二分回退组成稳定的时间轴求逆器。
+- Tween 与 `ScalarTrack`：支持 delay、repeat、Mirror、Continue、逐段曲线、速度和加速度。
+- 多媒体类型：Point2、Point3、RGBA、Transform2D、颜色渐变、Hermite 和 Catmull-Rom。
+- 轨迹编排：命名标记、MarkerCursor、ScalarTrackBundle、MotionStateMachine、MotionClip 和 ClipSequence。
+- 几何与时间：Spline2D/Spline3D、复合 Path2D、距离采样、投影、边界框和 Piecewise RetimeMap。
+- 离线分析：固定帧率与自适应采样、信号滤波、峰值、积分、单调性、曲线报告和可复现实验入口。
 
-## 功能范围
+与只提供基础 easing 函数的包相比，本项目的重点是可直接接入数字媒体工作流的轨道、时间、路径和导出层；它不复制其他生态包的实现，也不绑定 Lottie、Canvas 或某个游戏引擎。
 
-### Easing 与曲线
+## 快速开始
 
-- Linear、Quad、Cubic、Quart、Quint、Sine、Expo、Circ；共 31 个内建曲线。
-- Back、Elastic、Bounce 等带超调的曲线；
-- compose、blend、mirror 组合；
-- Bezier::new(x1, y1, x2, y2) 自定义三次贝塞尔；
-- 曲线采样、导数、近似长度、误差和单调性报告。
-
-### 时间轴与关键帧
-
-- Tween 支持 delay、repeat、Mirror（往返）和生命周期状态；
-- Keyframe 与 ScalarTrack 支持每段独立 easing；
-- TrackBuilder 支持编辑器式增删改关键帧；
-- Timeline 以名称和 offset 组织多条轨道；
-- Clamp、Repeat、Mirror、Continue 四种边界策略。
-
-### 数字媒体插值与采样
-
-- 标量、Point2、Point3、RGBA、Transform2D；
-- Point2Track、Point3Track、RgbaTrack、TransformTrack 和可编辑 GradientBuilder；
-- ColorGradient、TweenSequence、SpringSpec 和 CubicPath2D；
-- 最短路径角度插值、预乘 alpha 插值；
-- Hermite 和 Catmull-Rom 曲线；
-- 固定帧率采样、函数采样、降采样；
-- 速度、加速度、峰值、端点误差和积分估计。
-
-## 安装
-
-要求 MoonBit 0.10.3 或更新版本。当前仓库使用 Mooncakes namespace Zlj6566/moonbit-easings，并对应 GitHub 仓库 https://github.com/Zlj6566/moonbit-easings。
+要求 MoonBit stable 0.10.7 或更新版本。
 
 ~~~sh
 moon add Zlj6566/moonbit-easings
 ~~~
 
-在 moon.pkg 中：
+在 `moon.pkg` 中导入：
 
 ~~~moonbit
 import {
@@ -61,7 +36,7 @@ import {
 }
 ~~~
 
-## 快速示例
+最小 Tween 示例：
 
 ~~~moonbit
 let curve = try! @easings.Bezier::new(0.25, 0.1, 0.25, 1.0)
@@ -76,68 +51,71 @@ println(sample.value().to_string())
 println(sample.velocity().to_string())
 ~~~
 
-关键帧轨道：
+## CLI
 
-~~~moonbit
-let track = try! @easings.ScalarTrack::new([
-  try! @easings.keyframe(0.0, 0.0),
-  try! @easings.keyframe(
-    0.5,
-    1.0,
-    curve=@easings.Curve::builtin(@easings.SineInOut),
-  ),
-  try! @easings.keyframe(1.0, 0.0),
-])
-let value = track.sample(0.25)
-~~~
-
-运行仓库中的示例：
+仓库提供两个可运行入口：
 
 ~~~sh
+# 展示 Tween、关键帧、颜色渐变和序列组合
 moon run cmd/demo
+
+# 运行可复现的 Native 工作负载并打印校验和
+moon run --target native --release cmd/bench
 ~~~
 
-## 工程结构
+`cmd/bench` 不把主机时钟写入库 API；它打印固定迭代次数、采样校验和和自适应采样结果，主机耗时由 `BENCHMARKS.md` 中的测量命令取得。
 
-~~~text
-.
-├── bezier*.mbt             # Cubic-Bezier 缓存求逆与曲线工具
-├── easing_*.mbt            # 曲线族、组合和注册表
-├── keyframe_*.mbt          # 关键帧与标量轨道
-├── tween.mbt               # 延时、重复和往返补间
-├── interpolate*.mbt        # 点、颜色、变换及 Hermite/Catmull-Rom
-├── typed_tracks.mbt        # Point/Color/Transform 类型轨道
-├── color_gradient.mbt      # 颜色渐变与编辑器构建器
-├── sequence.mbt            # 串行 Tween 组合
-├── sampling.mbt            # 固定帧率与离线采样
-├── timeline.mbt            # 命名多轨道时间线
-├── path.mbt / spring.mbt   # 几何路径与弹簧响应
-├── diagnostics.mbt         # 曲线报告和运动剖面
-├── cmd/demo                # 可运行示例
-└── .github/workflows       # MoonBit CI
-~~~
+## 架构
 
-## 验证
+```text
+Easing / Bezier
+      │
+      ├── Tween / Keyframe / ScalarTrack
+      │          │
+      │          ├── Timeline / Bundle / StateMachine
+      │          └── Clip / Sequence / Transport / Markers
+      │
+      ├── Point / Color / Transform Tracks
+      ├── Spline / Path / RetimeMap
+      └── Sampling / Signal / Diagnostics
+```
+
+主要模块按职责拆分：`easing_*.mbt` 与 `bezier*.mbt` 提供曲线内核；`keyframe_*.mbt`、`tween.mbt` 和 `timeline.mbt` 提供时间数据模型；`typed_tracks.mbt`、`path.mbt`、`spline.mbt` 和 `path_geometry.mbt` 提供数字媒体值与几何；`adaptive_sampling.mbt`、`signal_processing.mbt` 和 `curve_analysis.mbt` 面向离线导出与质量检查；`motion_clip.mbt`、`motion_transport.mbt`、`motion_markers.mbt` 和 `motion_state_machine.mbt` 面向运行时编排。
+
+核心采样函数只在调用者明确请求批量结果时分配输出数组；Bezier 单点采样使用缓存表、Newton 迭代和二分回退，不创建临时采样数组。
+
+## 基准
+
+基准说明、工具链版本、机器环境、完整输出和重复测量方式见 [BENCHMARKS.md](BENCHMARKS.md)。本地执行：
 
 ~~~sh
-moon check --target all
-moon test --target wasm
-moon test --target wasm-gc
-moon test --target native
-moon run cmd/demo
+moon build --target native --release cmd/bench
+moon run --target native --release cmd/bench
+~~~
+
+校验和用于确认不同构建目标实际执行了同一工作负载；墙钟数据不被当作跨机器的绝对性能承诺。
+
+## 测试
+
+提交前执行完整检查：
+
+~~~sh
 moon fmt --check
+moon info --target all
+git diff --exit-code
 moon check --fmt --deny-warn --target all
-moon info
+moon build --target all
+moon test --deny-warn --target all
 ~~~
 
-CI 会在 Linux、macOS、Windows 上执行格式化检查、带 deny-warn 的全后端检查、测试和 moon info 差异检查。当前 MoonBit 0.10.7 的 `moon fmt` 与 `moon info` 命令本身不提供 `--deny-warn` 选项，格式化通过 `moon fmt --check` 验证，警告门禁由 `moon check --fmt --deny-warn` 完成。项目核心不使用平台 FFI，因此 JS 测试也会在安装 Node.js 的 CI runner 上执行。
+测试覆盖 easing 边界、Bezier 参数求逆、重复和镜像时间、关键帧排序、向量/颜色/变换插值、路径端点、空输入、非法参数、标记方向、轨迹投影、自适应采样、重映射、信号边界和 Native/JS/Wasm 全目标行为。
 
-## 设计与性能说明
+## CI
 
-Bezier::new 阶段生成小型 x 采样表；Bezier::sample 首先用表定位区间，再用 Newton 迭代，斜率过小时回退到区间二分。采样阶段不创建临时数组，适合在每帧循环中调用。sample_many、Timeline::sample_window 等批处理 API 会按调用者要求分配输出数组，这是结果所有权的一部分。
+`.github/workflows/test.yml` 在 Ubuntu、macOS 和 Windows 上安装官方 MoonBit stable 工具链，执行格式化、`moon info` 生成物差异检查、全目标检查、全目标构建和全目标测试，并开启 `--deny-warn`。
 
-Timeline 仍只保存标量轨道，避免把某个渲染器或序列化格式硬编码进核心；复杂值由类型轨道单独提供，保持数据模型和渲染后端解耦。ColorGradient、CubicPath2D 和 SpringSpec 分别覆盖颜色、几何路径和物理感运动，但不承担资源解析或绘制职责。
+`.github/workflows/publish.yml` 只在手动触发时验证同一检查链，并使用仓库 Secret 中的 `MOONCAKES_TOKEN` 发布包；日常 CI 不执行发布。基准程序不进入普通测试矩阵，可按文档在 Native Release 模式单独运行。
 
 ## 许可证
 
-MIT，见 LICENSE。
+本项目采用 MIT License，见 [LICENSE](LICENSE)。实现来源和第三方生态边界见 [SOURCES.md](SOURCES.md)。

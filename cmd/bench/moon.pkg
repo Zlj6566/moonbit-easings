@@ -1,0 +1,5 @@
+import {
+  "Zlj6566/moonbit-easings" @easings,
+}
+
+pkgtype(kind: "executable")

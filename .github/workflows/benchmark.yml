@@ -1,0 +1,35 @@
+name: Native benchmark
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  benchmark:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+
+      - name: Setup MoonBit
+        shell: bash
+        run: |
+          curl -fsSL https://cli.moonbitlang.com/install/unix.sh | bash
+          echo "$HOME/.moon/bin" >> "$GITHUB_PATH"
+
+      - name: Build benchmark
+        run: |
+          moon version --all
+          moon update
+          moon fmt --check
+          moon info --target all
+          git diff --exit-code
+          moon check --fmt --deny-warn --target all
+          moon build --target native --release cmd/bench
+
+      - name: Run benchmark workload
+        run: moon run --target native --release cmd/bench
