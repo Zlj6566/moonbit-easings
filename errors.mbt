@@ -10,6 +10,14 @@ pub(all) suberror MotionError {
   EmptyTrack
   NonIncreasingKeyframe(Double, Double)
   InvalidFrameRate(Double)
+  InvalidPointCount(Int)
+  InvalidTension(Double)
+  InvalidSegmentCount(Int)
+  InvalidThreshold(Double)
+  InvalidMarkerName
+  InvalidChannelName
+  InvalidRetimeSegment
+  InvalidStateName
 }
 
 ///|

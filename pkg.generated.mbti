@@ -6,6 +6,10 @@ import {
 }
 
 // Values
+pub fn adaptive_sample((Double) -> Double, Double, Double, AdaptiveSamplingConfig) -> AdaptiveSampleResult raise MotionError
+
+pub fn adaptive_sample_tween(Tween, Double, Double, AdaptiveSamplingConfig) -> AdaptiveSampleResult raise MotionError
+
 pub fn all_easings() -> Array[EasingId]
 
 pub fn analyze_bezier(Bezier, Int) -> CurveReport
@@ -13,6 +17,8 @@ pub fn analyze_bezier(Bezier, Int) -> CurveReport
 pub fn analyze_easing((Double) -> Double, Int) -> CurveReport
 
 pub fn analyze_easing_id(EasingId, Int) -> CurveReport
+
+pub fn analyze_samples(Array[SamplePoint]) -> Array[CurveAnalysisPoint]
 
 pub fn back_in(Double, overshoot? : Double) -> Double
 
@@ -23,6 +29,8 @@ pub fn back_out(Double, overshoot? : Double) -> Double
 pub fn bezier_clamped(Double, Double, Double, Double) -> Bezier
 
 pub fn blend((Double) -> Double, (Double) -> Double, amount~ : Double) -> (Double) -> Double
+
+pub fn blend_bundles(ScalarTrackBundle, ScalarTrackBundle, Double) -> ScalarTrackBundle raise MotionError
 
 pub fn blend_values(Array[Double], Array[Double], Double) -> Array[Double]
 
@@ -36,6 +44,10 @@ pub fn catmull_rom(Double, Double, Double, Double, Double, tension? : Double) ->
 
 pub fn catmull_rom_array(Array[Double], Double) -> Double
 
+pub fn catmull_rom_point2(Point2, Point2, Point2, Point2, Double, tension? : Double) -> Point2
+
+pub fn catmull_rom_point3(Point3, Point3, Point3, Point3, Double, tension? : Double) -> Point3
+
 pub fn circ_in(Double) -> Double
 
 pub fn circ_in_out(Double) -> Double
@@ -46,7 +58,15 @@ pub fn clamp01(Double) -> Double
 
 pub fn clamp_values(Array[Double], MotionBounds) -> Array[Double]
 
+pub fn classify_monotonicity(Array[SamplePoint], tolerance? : Double) -> CurveMonotonicity
+
 pub fn compose((Double) -> Double, (Double) -> Double) -> (Double) -> Double
+
+pub fn compose_retime(RetimeMap, RetimeMap, samples_per_segment? : Int) -> RetimeMap raise MotionError
+
+pub fn convolve_signal(MotionSignal, Array[Double]) -> MotionSignal
+
+pub fn critically_damped_step(Double, Double, Double, Double, Double) -> (Double, Double)
 
 pub fn cubic_in(Double) -> Double
 
@@ -56,11 +76,21 @@ pub fn cubic_out(Double) -> Double
 
 pub fn cubic_path2d(Point2, Point2, Point2, Point2) -> CubicPath2D
 
+pub fn cumulative_integral(MotionSignal) -> MotionSignal
+
+pub fn curve_lookup((Double) -> Double, Double, Double, Int) -> Array[SamplePoint] raise MotionError
+
+pub fn curve_maximum(Array[SamplePoint]) -> SamplePoint?
+
+pub fn curve_minimum(Array[SamplePoint]) -> SamplePoint?
+
 pub fn decimate_samples(Array[SamplePoint], Int) -> Array[SamplePoint]
 
 pub fn derivative_of((Double) -> Double, Double, step? : Double) -> Double
 
 pub fn differentiate(Array[Double], Double) -> Array[Double]
+
+pub fn differentiate_signal(MotionSignal) -> MotionSignal
 
 pub fn easing(EasingId) -> (Double) -> Double
 
@@ -78,13 +108,21 @@ pub fn expo_in_out(Double) -> Double
 
 pub fn expo_out(Double) -> Double
 
+pub fn first_crossing(Array[SamplePoint], Double) -> Double?
+
 pub fn gradient_stop(Double, Rgba, curve? : Curve) -> GradientStop raise MotionError
 
 pub fn hermite(Double, Double, Double, Double, Double) -> Double
 
 pub fn hsv(hue~ : Double, saturation~ : Double, value~ : Double, alpha? : Double) -> Hsv
 
+pub fn integrate_analyzed_curve(Array[SamplePoint]) -> Double
+
 pub fn integrate_curve((Double) -> Double, Int) -> Double
+
+pub fn integrate_samples(Array[SamplePoint]) -> Double
+
+pub fn integrate_signal(MotionSignal) -> Double
 
 pub fn interpolate_angle(Double, Double, Double) -> Double
 
@@ -98,6 +136,8 @@ pub fn interpolate_rgba(Rgba, Rgba, Double, premultiplied? : Bool) -> Rgba
 
 pub fn interpolate_rgba_hsv(Rgba, Rgba, Double) -> Rgba
 
+pub fn interpolate_samples(Array[AdaptiveSamplePoint], Double) -> Double
+
 pub fn interpolate_scalar(Double, Double, Double) -> Double
 
 pub fn interpolate_transform(Transform2D, Transform2D, Double, shortest_rotation? : Bool) -> Transform2D
@@ -106,25 +146,91 @@ pub fn keyframe(Double, Double, curve? : Curve) -> Keyframe raise MotionError
 
 pub fn linear(Double) -> Double
 
+pub fn local_maxima(Array[SamplePoint], Double) -> Array[SamplePoint] raise MotionError
+
+pub fn lookup_value(Array[SamplePoint], Double) -> Double
+
+pub fn low_pass_signal(MotionSignal, Double) -> MotionSignal
+
+pub fn map_curve_range(Array[SamplePoint], Double, Double) -> Array[SamplePoint]
+
+pub fn marker(Double, String, payload? : String) -> MotionMarker raise MotionError
+
+pub fn marker_cursor(MarkerTimeline, start_time? : Double) -> MarkerCursor
+
+pub fn marker_sequence(Array[String], Double, Double) -> MarkerTimeline raise MotionError
+
+pub fn maximum_sample_error(Array[SamplePoint], Array[SamplePoint]) -> Double
+
+pub fn mean(Array[Double]) -> Double
+
+pub fn median(Array[Double]) -> Double
+
 pub fn mirror((Double) -> Double) -> (Double) -> Double
 
 pub fn monotone_envelope(Array[Double]) -> Array[Double]
 
+pub fn motion_clip(String, ScalarTrack, markers? : MarkerTimeline, loop_mode? : ClipLoopMode) -> MotionClip raise MotionError
+
 pub fn motion_profile((Double) -> Double, Int) -> Array[MotionSample] raise MotionError
+
+pub fn motion_state(String, Double) -> MotionStateNode raise MotionError
+
+pub fn motion_transition(String, String, Double, curve? : Curve) -> MotionStateTransition raise MotionError
 
 pub fn moving_average(Array[Double], Int) -> Array[Double]
 
 pub fn normalize_samples(Array[Double]) -> Array[Double]
 
+pub fn normalize_signal(MotionSignal) -> MotionSignal
+
+pub fn path_builder2d(Point2) -> PathBuilder2D
+
+pub fn path_cubic(Point2, Point2, Point2, Point2) -> PathSegment2D
+
+pub fn path_line(Point2, Point2) -> PathSegment2D
+
 pub fn peak_index(Array[Double]) -> Int?
+
+pub fn percentile(Array[Double], Double) -> Double
 
 pub fn point2(x~ : Double, y~ : Double) -> Point2
 
+pub fn point2_angle(Point2, Point2) -> Double
+
+pub fn point2_cross(Point2, Point2) -> Double
+
+pub fn point2_dot(Point2, Point2) -> Double
+
+pub fn point2_from_polar(Double, Double) -> Point2
+
 pub fn point2_keyframe(Double, value~ : Point2, curve? : Curve) -> Point2Keyframe raise MotionError
+
+pub fn point2_length(Point2) -> Double
+
+pub fn point2_lerp_clamped(Point2, Point2, Double) -> Point2
+
+pub fn point2_normal(Point2) -> Point2
+
+pub fn point2_normalized(Point2) -> Point2
+
+pub fn point2_reflect(Point2, Point2) -> Point2
 
 pub fn point3(x~ : Double, y~ : Double, z~ : Double) -> Point3
 
+pub fn point3_cross(Point3, Point3) -> Point3
+
+pub fn point3_distance(Point3, Point3) -> Double
+
+pub fn point3_dot(Point3, Point3) -> Double
+
 pub fn point3_keyframe(Double, value~ : Point3, curve? : Curve) -> Point3Keyframe raise MotionError
+
+pub fn point3_length(Point3) -> Double
+
+pub fn point3_lerp_clamped(Point3, Point3, Double) -> Point3
+
+pub fn point3_normalized(Point3) -> Point3
 
 pub fn polynomial_in(Double, exponent~ : Double) -> Double
 
@@ -154,6 +260,20 @@ pub fn quint_out(Double) -> Double
 
 pub fn remap_times(Array[Double], TimeWarp) -> Array[Double]
 
+pub fn remap_value(Double, Double, Double, Double, Double) -> Double
+
+pub fn resample_adaptive(AdaptiveSampleResult, Int) -> Array[SamplePoint] raise MotionError
+
+pub fn resample_signal(MotionSignal, Double) -> MotionSignal raise MotionError
+
+pub fn rescale_time(Array[SamplePoint], Double, Double) -> Array[SamplePoint]
+
+pub fn retime_linear(Double, Double, Double, Double) -> RetimeMap raise MotionError
+
+pub fn retime_segment(Double, Double, Double, Double, curve? : Curve) -> RetimeSegment raise MotionError
+
+pub fn reverse_samples(Array[SamplePoint]) -> Array[SamplePoint]
+
 pub fn rgba(r~ : Double, g~ : Double, b~ : Double, a? : Double) -> Rgba
 
 pub fn rgba_keyframe(Double, value~ : Rgba, curve? : Curve) -> RgbaKeyframe raise MotionError
@@ -166,11 +286,35 @@ pub fn sample_track(ScalarTrack, SamplingConfig, mode? : Extrapolation) -> Array
 
 pub fn sample_tween(Tween, SamplingConfig) -> Array[SamplePoint]
 
+pub fn scalar_channel(String, ScalarTrack, enabled? : Bool, weight? : Double, offset? : Double) -> ScalarChannel raise MotionError
+
+pub fn scale_markers(MarkerTimeline, Double) -> MarkerTimeline raise MotionError
+
+pub fn sequence_item(MotionClip, Double, weight? : Double) -> ClipSequenceItem raise MotionError
+
+pub fn shift_markers(MarkerTimeline, Double) -> MarkerTimeline raise MotionError
+
+pub fn signal_energy(MotionSignal) -> Double
+
+pub fn signal_maximum(MotionSignal) -> Double?
+
+pub fn signal_minimum(MotionSignal) -> Double?
+
+pub fn signal_rms(MotionSignal) -> Double
+
+pub fn signal_to_samples(MotionSignal) -> Array[SamplePoint]
+
+pub fn simplify_samples(Array[SamplePoint], Double) -> Array[SamplePoint] raise MotionError
+
 pub fn sine_in(Double) -> Double
 
 pub fn sine_in_out(Double) -> Double
 
 pub fn sine_out(Double) -> Double
+
+pub fn smooth_damp(Double, Double, Double, Double, Double) -> (Double, Double)
+
+pub fn smooth_signal(MotionSignal, Int) -> MotionSignal
 
 pub fn soft_limit(Double, Double, Double, Double) -> Double
 
@@ -178,11 +322,29 @@ pub fn spring_spec(Double, Double, mass? : Double, initial_velocity? : Double) -
 
 pub fn stagger(Int, Double, Double) -> Array[Double]
 
+pub fn standard_deviation(Array[Double]) -> Double
+
+pub fn threshold_crossings(Array[SamplePoint], Double) -> Array[Double] raise MotionError
+
+pub fn total_variation(Array[SamplePoint]) -> Double
+
 pub fn track_slot(String, ScalarTrack, offset? : Double, enabled? : Bool) -> TrackSlot
 
 pub fn transform2d(position~ : Point2, scale~ : Point2, rotation~ : Double, skew? : Double) -> Transform2D
 
 pub fn transform_keyframe(Double, value~ : Transform2D, curve? : Curve) -> TransformKeyframe raise MotionError
+
+pub fn transport_frame_count(TransportRange, Double) -> Int
+
+pub fn transport_frames(TransportRange, Double, markers? : MarkerTimeline) -> Array[TransportFrame] raise MotionError
+
+pub fn transport_progress(TransportRange, Double) -> Double
+
+pub fn transport_range(Double, Double) -> TransportRange raise MotionError
+
+pub fn transport_time_at_frame(TransportRange, Double, Int) -> Double
+
+pub fn variance(Array[Double]) -> Double
 
 // Errors
 pub(all) suberror MotionError {
@@ -195,9 +357,47 @@ pub(all) suberror MotionError {
   EmptyTrack
   NonIncreasingKeyframe(Double, Double)
   InvalidFrameRate(Double)
+  InvalidPointCount(Int)
+  InvalidTension(Double)
+  InvalidSegmentCount(Int)
+  InvalidThreshold(Double)
+  InvalidMarkerName
+  InvalidChannelName
+  InvalidRetimeSegment
+  InvalidStateName
 }
 
 // Types and methods
+pub(all) struct AdaptiveSamplePoint {
+  time : Double
+  value : Double
+  depth : Int
+} derive(@debug.Debug)
+pub fn AdaptiveSamplePoint::depth(Self) -> Int
+pub fn AdaptiveSamplePoint::time(Self) -> Double
+pub fn AdaptiveSamplePoint::value(Self) -> Double
+
+pub(all) struct AdaptiveSampleResult {
+  points : Array[AdaptiveSamplePoint]
+  accepted_segments : Int
+  rejected_segments : Int
+  maximum_error : Double
+} derive(@debug.Debug)
+pub fn AdaptiveSampleResult::accepted_segments(Self) -> Int
+pub fn AdaptiveSampleResult::maximum_error(Self) -> Double
+pub fn AdaptiveSampleResult::points(Self) -> Array[AdaptiveSamplePoint]
+pub fn AdaptiveSampleResult::rejected_segments(Self) -> Int
+
+pub struct AdaptiveSamplingConfig {
+  tolerance : Double
+  max_depth : Int
+  max_samples : Int
+} derive(@debug.Debug)
+pub fn AdaptiveSamplingConfig::max_depth(Self) -> Int
+pub fn AdaptiveSamplingConfig::max_samples(Self) -> Int
+pub fn AdaptiveSamplingConfig::new(Double, max_depth? : Int, max_samples? : Int) -> Self raise MotionError
+pub fn AdaptiveSamplingConfig::tolerance(Self) -> Double
+
 pub struct Bezier {
   x1 : Double
   y1 : Double
@@ -222,6 +422,59 @@ pub(all) struct Bounds2D {
 } derive(@debug.Debug)
 pub fn Bounds2D::maximum(Self) -> Point2
 pub fn Bounds2D::minimum(Self) -> Point2
+
+pub(all) struct BundleSample {
+  time : Double
+  names : Array[String]
+  values : Array[Double]
+  weighted_value : Double
+  active_weight : Double
+} derive(@debug.Debug)
+pub fn BundleSample::active_weight(Self) -> Double
+pub fn BundleSample::length(Self) -> Int
+pub fn BundleSample::names(Self) -> Array[String]
+pub fn BundleSample::time(Self) -> Double
+pub fn BundleSample::value_at(Self, Int) -> Double?
+pub fn BundleSample::value_named(Self, String) -> Double?
+pub fn BundleSample::values(Self) -> Array[Double]
+pub fn BundleSample::weighted_value(Self) -> Double
+
+pub(all) enum ClipLoopMode {
+  Once
+  Repeat
+  PingPong
+} derive(Eq, @debug.Debug)
+
+pub struct ClipSequence {
+  items : Array[ClipSequenceItem]
+  duration : Double
+} derive(@debug.Debug)
+pub fn ClipSequence::duration(Self) -> Double
+pub fn ClipSequence::items(Self) -> Array[ClipSequenceItem]
+pub fn ClipSequence::length(Self) -> Int
+pub fn ClipSequence::markers_between(Self, Double, Double) -> Array[MarkerHit]
+pub fn ClipSequence::new(Array[ClipSequenceItem]) -> Self raise MotionError
+pub fn ClipSequence::sample(Self, Double) -> Double
+pub fn ClipSequence::sample_many(Self, Int) -> Array[SamplePoint] raise MotionError
+
+pub struct ClipSequenceBuilder {
+  items : Array[ClipSequenceItem]
+} derive(@debug.Debug)
+pub fn ClipSequenceBuilder::add(Self, ClipSequenceItem) -> Self
+pub fn ClipSequenceBuilder::add_at(Self, MotionClip, Double, weight? : Double) -> Self raise MotionError
+pub fn ClipSequenceBuilder::build(Self) -> ClipSequence raise MotionError
+pub fn ClipSequenceBuilder::length(Self) -> Int
+pub fn ClipSequenceBuilder::new() -> Self
+
+pub struct ClipSequenceItem {
+  clip : MotionClip
+  start : Double
+  weight : Double
+} derive(@debug.Debug)
+pub fn ClipSequenceItem::clip(Self) -> MotionClip
+pub fn ClipSequenceItem::end(Self) -> Double
+pub fn ClipSequenceItem::start(Self) -> Double
+pub fn ClipSequenceItem::weight(Self) -> Double
 
 pub struct ColorGradient {
   stops : Array[GradientStop]
@@ -259,6 +512,19 @@ pub fn Curve::bezier(Bezier) -> Self
 pub fn Curve::builtin(EasingId) -> Self
 pub fn Curve::derivative(Self, Double) -> Double
 
+pub(all) struct CurveAnalysisPoint {
+  time : Double
+  value : Double
+  velocity : Double
+  acceleration : Double
+  normalized_value : Double
+} derive(@debug.Debug)
+pub fn CurveAnalysisPoint::acceleration(Self) -> Double
+pub fn CurveAnalysisPoint::normalized_value(Self) -> Double
+pub fn CurveAnalysisPoint::time(Self) -> Double
+pub fn CurveAnalysisPoint::value(Self) -> Double
+pub fn CurveAnalysisPoint::velocity(Self) -> Double
+
 pub struct CurveChain {
   curves : Array[Curve]
   weights : Array[Double]
@@ -269,6 +535,13 @@ pub fn CurveChain::length(Self) -> Int
 pub fn CurveChain::new(Array[Curve], weights? : Array[Double]) -> Self raise MotionError
 pub fn CurveChain::sample(Self, Double) -> Double
 pub fn CurveChain::sample_many(Self, Int) -> Array[Double] raise MotionError
+
+pub(all) enum CurveMonotonicity {
+  Increasing
+  Decreasing
+  Constant
+  Mixed
+} derive(Eq, @debug.Debug)
 
 pub(all) struct CurveReport {
   samples : Int
@@ -380,6 +653,47 @@ pub fn Keyframe::curve(Self) -> Curve
 pub fn Keyframe::time(Self) -> Double
 pub fn Keyframe::value(Self) -> Double
 
+pub struct MarkerCursor {
+  timeline : MarkerTimeline
+  mut time : Double
+} derive(@debug.Debug)
+pub fn MarkerCursor::advance(Self, Double) -> Array[MarkerHit]
+pub fn MarkerCursor::reset(Self, time? : Double) -> Unit
+pub fn MarkerCursor::seek(Self, Double) -> Unit
+pub fn MarkerCursor::time(Self) -> Double
+pub fn MarkerCursor::timeline(Self) -> MarkerTimeline
+
+pub(all) enum MarkerDirection {
+  Forward
+  Backward
+} derive(Eq, @debug.Debug)
+
+pub(all) struct MarkerHit {
+  marker : MotionMarker
+  direction : MarkerDirection
+} derive(@debug.Debug)
+pub fn MarkerHit::direction(Self) -> MarkerDirection
+pub fn MarkerHit::marker(Self) -> MotionMarker
+pub fn MarkerHit::name(Self) -> String
+pub fn MarkerHit::time(Self) -> Double
+
+pub struct MarkerTimeline {
+  markers : Array[MotionMarker]
+} derive(@debug.Debug)
+pub fn MarkerTimeline::add(Self, MotionMarker) -> Unit
+pub fn MarkerTimeline::at(Self, Double, tolerance? : Double) -> Array[MotionMarker]
+pub fn MarkerTimeline::between(Self, Double, Double) -> Array[MarkerHit]
+pub fn MarkerTimeline::duration(Self) -> Double
+pub fn MarkerTimeline::empty() -> Self
+pub fn MarkerTimeline::find(Self, String) -> Array[MotionMarker]
+pub fn MarkerTimeline::length(Self) -> Int
+pub fn MarkerTimeline::markers(Self) -> Array[MotionMarker]
+pub fn MarkerTimeline::new(Array[MotionMarker]) -> Self
+pub fn MarkerTimeline::next_after(Self, Double) -> MotionMarker?
+pub fn MarkerTimeline::previous_before(Self, Double) -> MotionMarker?
+pub fn MarkerTimeline::remove_at(Self, Int) -> MotionMarker?
+pub fn MarkerTimeline::window(Self, Double, Double) -> Array[MarkerHit]
+
 pub struct MotionBounds {
   minimum : Double
   maximum : Double
@@ -388,6 +702,48 @@ pub fn MotionBounds::clamp(Self, Double) -> Double
 pub fn MotionBounds::maximum(Self) -> Double
 pub fn MotionBounds::minimum(Self) -> Double
 pub fn MotionBounds::new(Double, Double) -> Self raise MotionError
+
+pub struct MotionClip {
+  name : String
+  track : ScalarTrack
+  markers : MarkerTimeline
+  loop_mode : ClipLoopMode
+} derive(@debug.Debug)
+pub fn MotionClip::duration(Self) -> Double
+pub fn MotionClip::end_time(Self) -> Double
+pub fn MotionClip::loop_mode(Self) -> ClipLoopMode
+pub fn MotionClip::markers(Self) -> MarkerTimeline
+pub fn MotionClip::markers_between(Self, Double, Double) -> Array[MarkerHit]
+pub fn MotionClip::name(Self) -> String
+pub fn MotionClip::sample(Self, Double) -> Double
+pub fn MotionClip::sample_many(Self, Int) -> Array[SamplePoint] raise MotionError
+pub fn MotionClip::sample_motion(Self, Double) -> MotionSample
+pub fn MotionClip::scale_time(Self, Double) -> Self raise MotionError
+pub fn MotionClip::shift(Self, Double) -> Self raise MotionError
+pub fn MotionClip::start_time(Self) -> Double
+pub fn MotionClip::track(Self) -> ScalarTrack
+pub fn MotionClip::with_loop_mode(Self, ClipLoopMode) -> Self
+pub fn MotionClip::with_markers(Self, MarkerTimeline) -> Self
+
+pub struct MotionClipLibrary {
+  clips : Array[MotionClip]
+} derive(@debug.Debug)
+pub fn MotionClipLibrary::add(Self, MotionClip) -> Unit
+pub fn MotionClipLibrary::clips(Self) -> Array[MotionClip]
+pub fn MotionClipLibrary::find(Self, String) -> MotionClip?
+pub fn MotionClipLibrary::length(Self) -> Int
+pub fn MotionClipLibrary::new() -> Self
+pub fn MotionClipLibrary::remove(Self, String) -> MotionClip?
+pub fn MotionClipLibrary::total_duration(Self) -> Double
+
+pub struct MotionMarker {
+  time : Double
+  name : String
+  payload : String
+} derive(@debug.Debug)
+pub fn MotionMarker::name(Self) -> String
+pub fn MotionMarker::payload(Self) -> String
+pub fn MotionMarker::time(Self) -> Double
 
 pub(all) struct MotionSample {
   time : Double
@@ -398,6 +754,145 @@ pub(all) struct MotionSample {
 pub fn MotionSample::acceleration(Self) -> Double
 pub fn MotionSample::value(Self) -> Double
 pub fn MotionSample::velocity(Self) -> Double
+
+pub struct MotionSignal {
+  values : Array[Double]
+  start : Double
+  step : Double
+} derive(@debug.Debug)
+pub fn MotionSignal::at(Self, Int) -> Double?
+pub fn MotionSignal::clamp(Self, Double, Double) -> Self
+pub fn MotionSignal::duration(Self) -> Double
+pub fn MotionSignal::end(Self) -> Double
+pub fn MotionSignal::length(Self) -> Int
+pub fn MotionSignal::map(Self, (Double) -> Double) -> Self
+pub fn MotionSignal::new(Array[Double], Double, Double) -> Self raise MotionError
+pub fn MotionSignal::offset(Self, Double) -> Self
+pub fn MotionSignal::reverse(Self) -> Self
+pub fn MotionSignal::sample(Self, Double) -> Double
+pub fn MotionSignal::sample_many(Self, Int) -> Array[SamplePoint] raise MotionError
+pub fn MotionSignal::scale(Self, Double) -> Self
+pub fn MotionSignal::start(Self) -> Double
+pub fn MotionSignal::step(Self) -> Double
+pub fn MotionSignal::values(Self) -> Array[Double]
+pub fn MotionSignal::zip_map(Self, Self, (Double, Double) -> Double) -> Self
+
+pub struct MotionStateMachine {
+  states : Array[MotionStateNode]
+  transitions : Array[MotionStateTransition]
+  mut current : String
+  mut transition_from : String
+  mut transition_to : String
+  mut transition_start : Double
+  mut transition_duration : Double
+  mut transition_curve : Curve
+  mut has_transition : Bool
+} derive(@debug.Debug)
+pub fn MotionStateMachine::add_state(Self, MotionStateNode) -> Unit raise MotionError
+pub fn MotionStateMachine::add_transition(Self, MotionStateTransition) -> Unit raise MotionError
+pub fn MotionStateMachine::complete(Self) -> Unit
+pub fn MotionStateMachine::current(Self) -> String
+pub fn MotionStateMachine::has_state(Self, String) -> Bool
+pub fn MotionStateMachine::is_transitioning(Self) -> Bool
+pub fn MotionStateMachine::new(Array[MotionStateNode], transitions? : Array[MotionStateTransition], initial? : String) -> Self raise MotionError
+pub fn MotionStateMachine::reset(Self, state? : String) -> Unit raise MotionError
+pub fn MotionStateMachine::sample(Self, Double) -> Double
+pub fn MotionStateMachine::sample_motion(Self, Double) -> MotionSample
+pub fn MotionStateMachine::state_value(Self, String) -> Double?
+pub fn MotionStateMachine::states(Self) -> Array[MotionStateNode]
+pub fn MotionStateMachine::transition_to(Self, String, Double, duration? : Double, curve? : Curve) -> Unit raise MotionError
+pub fn MotionStateMachine::transitions(Self) -> Array[MotionStateTransition]
+
+pub struct MotionStateNode {
+  name : String
+  value : Double
+} derive(@debug.Debug)
+pub fn MotionStateNode::name(Self) -> String
+pub fn MotionStateNode::value(Self) -> Double
+
+pub struct MotionStateTransition {
+  from : String
+  to : String
+  duration : Double
+  curve : Curve
+} derive(@debug.Debug)
+pub fn MotionStateTransition::curve(Self) -> Curve
+pub fn MotionStateTransition::duration(Self) -> Double
+pub fn MotionStateTransition::from(Self) -> String
+pub fn MotionStateTransition::to(Self) -> String
+
+pub struct MotionTransport {
+  mut position : Double
+  mut speed : Double
+  mut status : TransportStatus
+  mut direction : PlaybackDirection
+  range : TransportRange
+  markers : MarkerTimeline
+} derive(@debug.Debug)
+pub fn MotionTransport::advance(Self, Double) -> Array[MarkerHit] raise MotionError
+pub fn MotionTransport::clone_at(Self, Double) -> Self
+pub fn MotionTransport::direction(Self) -> PlaybackDirection
+pub fn MotionTransport::elapsed(Self) -> Double
+pub fn MotionTransport::fast_forward(Self) -> Unit
+pub fn MotionTransport::is_at_boundary(Self) -> Bool
+pub fn MotionTransport::markers(Self) -> MarkerTimeline
+pub fn MotionTransport::new(TransportRange, markers? : MarkerTimeline) -> Self
+pub fn MotionTransport::normalized_position(Self) -> Double
+pub fn MotionTransport::pause(Self) -> Unit
+pub fn MotionTransport::play(Self) -> Unit
+pub fn MotionTransport::position(Self) -> Double
+pub fn MotionTransport::range(Self) -> TransportRange
+pub fn MotionTransport::remaining(Self) -> Double
+pub fn MotionTransport::rewind(Self) -> Unit
+pub fn MotionTransport::seek(Self, Double) -> Unit raise MotionError
+pub fn MotionTransport::seek_and_collect(Self, Double) -> Array[MarkerHit] raise MotionError
+pub fn MotionTransport::set_direction(Self, PlaybackDirection) -> Unit
+pub fn MotionTransport::set_speed(Self, Double) -> Unit raise MotionError
+pub fn MotionTransport::speed(Self) -> Double
+pub fn MotionTransport::status(Self) -> TransportStatus
+pub fn MotionTransport::stop(Self) -> Unit
+
+pub struct Path2D {
+  segments : Array[PathSegment2D]
+  lengths : Array[Double]
+  total_length : Double
+} derive(@debug.Debug)
+pub fn Path2D::append(Self, PathSegment2D, samples_per_curve? : Int) -> Self raise MotionError
+pub fn Path2D::bounds(Self, samples_per_curve? : Int) -> Bounds2D
+pub fn Path2D::end(Self) -> Point2
+pub fn Path2D::length(Self) -> Int
+pub fn Path2D::new(Array[PathSegment2D], samples_per_curve? : Int) -> Self raise MotionError
+pub fn Path2D::polyline(Self, Int) -> Array[Point2]
+pub fn Path2D::project(Self, Point2, samples_per_segment? : Int) -> SplineProjection
+pub fn Path2D::sample(Self, Double) -> Point2
+pub fn Path2D::sample_by_distance(Self, Double) -> Point2
+pub fn Path2D::segments(Self) -> Array[PathSegment2D]
+pub fn Path2D::start(Self) -> Point2
+pub fn Path2D::tangent(Self, Double) -> Point2
+pub fn Path2D::total_length(Self) -> Double
+
+pub struct PathBuilder2D {
+  mut current : Point2
+  segments : Array[PathSegment2D]
+} derive(@debug.Debug)
+pub fn PathBuilder2D::build(Self, samples_per_curve? : Int) -> Path2D raise MotionError
+pub fn PathBuilder2D::close(Self) -> Unit
+pub fn PathBuilder2D::cubic_to(Self, Point2, Point2, Point2) -> Unit
+pub fn PathBuilder2D::current(Self) -> Point2
+pub fn PathBuilder2D::length(Self) -> Int
+pub fn PathBuilder2D::line_to(Self, Point2) -> Unit
+
+pub(all) enum PathSegment2D {
+  Line(Point2, Point2)
+  Cubic(CubicPath2D)
+} derive(@debug.Debug)
+pub fn PathSegment2D::bounds(Self, samples? : Int) -> Bounds2D
+pub fn PathSegment2D::polyline(Self, Int) -> Array[Point2]
+
+pub(all) enum PlaybackDirection {
+  Forward
+  Reverse
+} derive(Eq, @debug.Debug)
 
 pub(all) struct Point2 {
   x : Double
@@ -460,6 +955,59 @@ pub fn Point3Track::sample(Self, Double, mode? : Extrapolation) -> Point3
 pub fn Point3Track::sample_many(Self, Int, mode? : Extrapolation) -> Array[Point3] raise MotionError
 pub fn Point3Track::start_time(Self) -> Double
 
+pub struct RetimeMap {
+  segments : Array[RetimeSegment]
+  input_start : Double
+  input_end : Double
+  output_start : Double
+  output_end : Double
+} derive(@debug.Debug)
+pub fn RetimeMap::derivative(Self, Double) -> Double
+pub fn RetimeMap::input_duration(Self) -> Double
+pub fn RetimeMap::input_end(Self) -> Double
+pub fn RetimeMap::input_start(Self) -> Double
+pub fn RetimeMap::length(Self) -> Int
+pub fn RetimeMap::map(Self, Double) -> Double
+pub fn RetimeMap::new(Array[RetimeSegment]) -> Self raise MotionError
+pub fn RetimeMap::output_duration(Self) -> Double
+pub fn RetimeMap::output_end(Self) -> Double
+pub fn RetimeMap::output_start(Self) -> Double
+pub fn RetimeMap::reverse(Self) -> Self raise MotionError
+pub fn RetimeMap::sample(Self, Int) -> Array[SamplePoint] raise MotionError
+pub fn RetimeMap::scale_output(Self, Double) -> Self raise MotionError
+pub fn RetimeMap::segments(Self) -> Array[RetimeSegment]
+pub fn RetimeMap::shift_output(Self, Double) -> Self raise MotionError
+pub fn RetimeMap::unmap(Self, Double) -> Double
+
+pub struct RetimeMapBuilder {
+  segments : Array[RetimeSegment]
+} derive(@debug.Debug)
+pub fn RetimeMapBuilder::add(Self, RetimeSegment) -> Self raise MotionError
+pub fn RetimeMapBuilder::build(Self) -> RetimeMap raise MotionError
+pub fn RetimeMapBuilder::length(Self) -> Int
+pub fn RetimeMapBuilder::new() -> Self
+
+pub struct RetimeSegment {
+  input_start : Double
+  input_end : Double
+  output_start : Double
+  output_end : Double
+  curve : Curve
+} derive(@debug.Debug)
+pub fn RetimeSegment::contains_input(Self, Double) -> Bool
+pub fn RetimeSegment::contains_output(Self, Double) -> Bool
+pub fn RetimeSegment::curve(Self) -> Curve
+pub fn RetimeSegment::derivative(Self, Double) -> Double
+pub fn RetimeSegment::input_duration(Self) -> Double
+pub fn RetimeSegment::input_end(Self) -> Double
+pub fn RetimeSegment::input_start(Self) -> Double
+pub fn RetimeSegment::map(Self, Double) -> Double
+pub fn RetimeSegment::output_duration(Self) -> Double
+pub fn RetimeSegment::output_end(Self) -> Double
+pub fn RetimeSegment::output_start(Self) -> Double
+pub fn RetimeSegment::speed(Self) -> Double
+pub fn RetimeSegment::unmap(Self, Double) -> Double
+
 pub(all) struct Rgba {
   r : Double
   g : Double
@@ -513,6 +1061,26 @@ pub fn SamplingConfig::frame_rate(Self) -> Double
 pub fn SamplingConfig::new(Double, Double, Double, include_end? : Bool) -> Self raise MotionError
 pub fn SamplingConfig::start(Self) -> Double
 
+pub struct ScalarChannel {
+  name : String
+  track : ScalarTrack
+  enabled : Bool
+  weight : Double
+  offset : Double
+} derive(@debug.Debug)
+pub fn ScalarChannel::duration(Self) -> Double
+pub fn ScalarChannel::enabled(Self) -> Bool
+pub fn ScalarChannel::end_time(Self) -> Double
+pub fn ScalarChannel::name(Self) -> String
+pub fn ScalarChannel::offset(Self) -> Double
+pub fn ScalarChannel::sample(Self, Double, mode? : Extrapolation) -> Double
+pub fn ScalarChannel::start_time(Self) -> Double
+pub fn ScalarChannel::track(Self) -> ScalarTrack
+pub fn ScalarChannel::weight(Self) -> Double
+pub fn ScalarChannel::with_enabled(Self, Bool) -> Self
+pub fn ScalarChannel::with_offset(Self, Double) -> Self raise MotionError
+pub fn ScalarChannel::with_weight(Self, Double) -> Self raise MotionError
+
 pub struct ScalarTrack {
   frames : Array[Keyframe]
 } derive(@debug.Debug)
@@ -532,6 +1100,34 @@ pub fn ScalarTrack::trim(Self, Double, Double) -> Self raise MotionError
 pub fn ScalarTrack::value_range(Self, Int) -> (Double, Double)
 pub fn ScalarTrack::velocity(Self, Double, mode? : Extrapolation) -> Double
 pub fn ScalarTrack::with_curve(Self, Curve) -> Self raise MotionError
+
+pub struct ScalarTrackBundle {
+  channels : Array[ScalarChannel]
+  start_time : Double
+  end_time : Double
+} derive(@debug.Debug)
+pub fn ScalarTrackBundle::channels(Self) -> Array[ScalarChannel]
+pub fn ScalarTrackBundle::duration(Self) -> Double
+pub fn ScalarTrackBundle::end_time(Self) -> Double
+pub fn ScalarTrackBundle::find(Self, String) -> ScalarChannel?
+pub fn ScalarTrackBundle::length(Self) -> Int
+pub fn ScalarTrackBundle::new(Array[ScalarChannel]) -> Self raise MotionError
+pub fn ScalarTrackBundle::sample(Self, Double, mode? : Extrapolation) -> BundleSample
+pub fn ScalarTrackBundle::sample_many(Self, Int, mode? : Extrapolation) -> Array[BundleSample] raise MotionError
+pub fn ScalarTrackBundle::set_enabled(Self, String, Bool) -> Self raise MotionError
+pub fn ScalarTrackBundle::set_weight(Self, String, Double) -> Self raise MotionError
+pub fn ScalarTrackBundle::start_time(Self) -> Double
+pub fn ScalarTrackBundle::with_channel(Self, ScalarChannel) -> Self raise MotionError
+pub fn ScalarTrackBundle::without(Self, String) -> Self raise MotionError
+
+pub struct ScalarTrackBundleBuilder {
+  channels : Array[ScalarChannel]
+} derive(@debug.Debug)
+pub fn ScalarTrackBundleBuilder::add(Self, ScalarChannel) -> Self raise MotionError
+pub fn ScalarTrackBundleBuilder::build(Self) -> ScalarTrackBundle raise MotionError
+pub fn ScalarTrackBundleBuilder::length(Self) -> Int
+pub fn ScalarTrackBundleBuilder::new() -> Self
+pub fn ScalarTrackBundleBuilder::remove(Self, String) -> Bool
 
 pub struct SequenceBuilder {
   tweens : Array[Tween]
@@ -561,6 +1157,57 @@ pub(all) enum SequenceState {
   Gap
   After
 } derive(Eq, @debug.Debug)
+
+pub struct Spline2D {
+  points : Array[Point2]
+  tension : Double
+  closed : Bool
+} derive(@debug.Debug)
+pub fn Spline2D::bounds(Self, samples_per_segment? : Int) -> Bounds2D
+pub fn Spline2D::closed(Self) -> Bool
+pub fn Spline2D::control_points(Self) -> Array[Point2]
+pub fn Spline2D::length(Self, Int) -> Double
+pub fn Spline2D::new(Array[Point2], tension? : Double, closed? : Bool) -> Self raise MotionError
+pub fn Spline2D::point_count(Self) -> Int
+pub fn Spline2D::polyline(Self, Int) -> Array[Point2]
+pub fn Spline2D::project(Self, Point2, samples_per_segment? : Int) -> SplineProjection
+pub fn Spline2D::sample(Self, Double) -> Point2
+pub fn Spline2D::sample_by_distance(Self, Double, samples_per_segment? : Int) -> Point2
+pub fn Spline2D::sample_many(Self, Int) -> Array[Point2] raise MotionError
+pub fn Spline2D::segment_count(Self) -> Int
+pub fn Spline2D::speed(Self, Double) -> Double
+pub fn Spline2D::tangent(Self, Double) -> Point2
+pub fn Spline2D::tension(Self) -> Double
+
+pub struct Spline3D {
+  points : Array[Point3]
+  tension : Double
+  closed : Bool
+} derive(@debug.Debug)
+pub fn Spline3D::closed(Self) -> Bool
+pub fn Spline3D::control_points(Self) -> Array[Point3]
+pub fn Spline3D::length(Self, Int) -> Double
+pub fn Spline3D::new(Array[Point3], tension? : Double, closed? : Bool) -> Self raise MotionError
+pub fn Spline3D::point_count(Self) -> Int
+pub fn Spline3D::polyline(Self, Int) -> Array[Point3]
+pub fn Spline3D::sample(Self, Double) -> Point3
+pub fn Spline3D::sample_by_distance(Self, Double, samples_per_segment? : Int) -> Point3
+pub fn Spline3D::sample_many(Self, Int) -> Array[Point3] raise MotionError
+pub fn Spline3D::segment_count(Self) -> Int
+pub fn Spline3D::speed(Self, Double) -> Double
+pub fn Spline3D::tangent(Self, Double) -> Point3
+pub fn Spline3D::tension(Self) -> Double
+
+pub(all) struct SplineProjection {
+  parameter : Double
+  distance : Double
+  value : Point2
+  error : Double
+} derive(@debug.Debug)
+pub fn SplineProjection::distance(Self) -> Double
+pub fn SplineProjection::error(Self) -> Double
+pub fn SplineProjection::parameter(Self) -> Double
+pub fn SplineProjection::value(Self) -> Point2
 
 pub struct SpringSpec {
   stiffness : Double
@@ -667,6 +1314,35 @@ pub fn TransformTrack::new(Array[TransformKeyframe], shortest_rotation? : Bool) 
 pub fn TransformTrack::sample(Self, Double, mode? : Extrapolation) -> Transform2D
 pub fn TransformTrack::sample_many(Self, Int, mode? : Extrapolation) -> Array[Transform2D] raise MotionError
 pub fn TransformTrack::start_time(Self) -> Double
+
+pub struct TransportFrame {
+  index : Int
+  time : Double
+  normalized : Double
+  marker_hits : Array[MarkerHit]
+} derive(@debug.Debug)
+pub fn TransportFrame::index(Self) -> Int
+pub fn TransportFrame::marker_hits(Self) -> Array[MarkerHit]
+pub fn TransportFrame::normalized(Self) -> Double
+pub fn TransportFrame::time(Self) -> Double
+
+pub struct TransportRange {
+  start : Double
+  end : Double
+} derive(@debug.Debug)
+pub fn TransportRange::clamp(Self, Double) -> Double
+pub fn TransportRange::contains(Self, Double) -> Bool
+pub fn TransportRange::duration(Self) -> Double
+pub fn TransportRange::end(Self) -> Double
+pub fn TransportRange::normalized(Self, Double) -> Double
+pub fn TransportRange::start(Self) -> Double
+
+pub(all) enum TransportStatus {
+  Stopped
+  Playing
+  Paused
+  Finished
+} derive(Eq, @debug.Debug)
 
 pub struct Tween {
   from : Double
